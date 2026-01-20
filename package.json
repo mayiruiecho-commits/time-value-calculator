@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --no-lint",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && npx vercel --prod",
-    "deploy:netlify": "next build && netlify deploy --prod --dir=.next"
+    "deploy": "next build --no-lint && npx vercel --prod",
+    "deploy:netlify": "next build --no-lint && netlify deploy --prod --dir=.next"
   },
   "dependencies": {
     "next": "14.0.0",

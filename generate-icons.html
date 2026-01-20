@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图标生成器</title>
+</head>
+<body>
+    <h2>PWA图标生成器</h2>
+    <canvas id="canvas192" width="192" height="192" style="border: 1px solid #ccc; margin: 10px;"></canvas>
+    <canvas id="canvas512" width="512" height="512" style="border: 1px solid #ccc; margin: 10px;"></canvas>
+    
+    <div>
+        <button onclick="downloadIcon(192)">下载 192x192</button>
+        <button onclick="downloadIcon(512)">下载 512x512</button>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const center = size / 2;
+            
+            // 背景圆形
+            ctx.fillStyle = '#3b82f6';
+            ctx.beginPath();
+            ctx.arc(center, center, size * 0.47, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 边框
+            ctx.strokeStyle = '#1e40af';
+            ctx.lineWidth = size * 0.015;
+            ctx.stroke();
+            
+            // 时钟外圈
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = size * 0.012;
+            ctx.beginPath();
+            ctx.arc(center, center, size * 0.35, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // 时钟刻度
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = size * 0.008;
+            ctx.beginPath();
+            // 12点
+            ctx.moveTo(center, size * 0.19);
+            ctx.lineTo(center, size * 0.23);
+            // 3点
+            ctx.moveTo(size * 0.77, center);
+            ctx.lineTo(size * 0.73, center);
+            // 6点
+            ctx.moveTo(center, size * 0.81);
+            ctx.lineTo(center, size * 0.77);
+            // 9点
+            ctx.moveTo(size * 0.23, center);
+            ctx.lineTo(size * 0.27, center);
+            ctx.stroke();
+            
+            // 时钟指针
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = size * 0.015;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            // 时针
+            ctx.moveTo(center, center);
+            ctx.lineTo(center, size * 0.35);
+            // 分针
+            ctx.moveTo(center, center);
+            ctx.lineTo(size * 0.625, center);
+            ctx.stroke();
+            
+            // 中心圆点
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(center, center, size * 0.023, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 金钱符号
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${size * 0.16}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('¥', center, size * 0.68);
+        }
+        
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // 绘制图标
+        drawIcon(document.getElementById('canvas192'), 192);
+        drawIcon(document.getElementById('canvas512'), 512);
+    </script>
+</body>
+</html>
